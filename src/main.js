@@ -17,6 +17,8 @@
                 this.dropdown.classList.add('dropdown');
                 this.dropdown.classList.add('close');
                 this.dropdown.setAttribute('hidden', true);
+                this.dropdownUL = document.createElement('ul');
+                this.dropdown.appendChild(this.dropdownUL);
 
                 this.documentFragment.appendChild(this.header);
                 this.documentFragment.appendChild(this.dropdown);
@@ -42,6 +44,13 @@
                 });
                 this.dispatchEvent(toggleEvent);
             }, 
+            "click:delegate(div.dropdown ul li.event)": function(e) {
+                var customEvent = new CustomEvent(e.event, {
+                    'bubbles': true,
+                    'cancelable': true                        
+                });                   
+                this.dispatchEvent(customEvent); 
+            },
             "toggle":function(e){
                 e.stopPropagation();
                 this._toggleDropDown();
@@ -56,11 +65,17 @@
             addSeparatorClass: function() {
 
             },
-            addText: function() {
-
+            addText: function(text) {
+                var li = document.createElement('li');
+                li.innerHTML = text;
+                this.dropdownUL.appendChild(li);
             },
-            addAction: function() {
-
+            addAction: function(text, event) {
+                var li = document.createElement('li');
+                li.classList.add('event');
+                li.innerHTML = text;
+                li.eventName = event;
+                this.dropdownUL.appendChild(li);
             },
             _toggleDropDown: function() {
                 if(this.dropdown.hasAttribute('hidden')) {
