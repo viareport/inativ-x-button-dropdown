@@ -6,8 +6,18 @@ selectors.toggleClosed = selectors.toggle+'.close';
 selectors.toggleOpen = selectors.toggle+'.open';
 selectors.dropdown = 'x-button-dropdown div.dropdown';
 selectors.dropdownLi = 'x-button-dropdown div.dropdown ul li';
-selectors.dropdownLiIndex = function(index) {
+selectors.dropdownLiIndex = function dropdownLiIndex(index) {
     return 'x-button-dropdown div.dropdown ul li:nth-child('+index+')';
+};
+
+var addElementsToDropdown = function(elements) {
+    elements.forEach(function(element) {
+        if('text' === element.type) {
+            buttonDropdown.addText(element.label);
+        } else if('action' === element.type) {
+            buttonDropdown.addAction(element.label,element.event);
+        }
+    });
 };
 
 
@@ -50,45 +60,19 @@ testSuite.addTest('Lorsque on clic sur le toggle, la dropdown est visible', func
     asserter.expect(selectors.dropdown).to.be.visible();
 });
 
-testSuite.addTest('Lorsque elle est visible, la dropdown affiche les élements ajoutés ordonnés', function(scenario, asserter) {
-
-    var elements = [
-        {
-            label: 'some text',
-            type: 'text'
-        },
-        {
-            label: 'action1',
-            type: 'action',
-            event: 'event1'
-        },
-        {
-            label: 'some other text',
-            type: 'text'
-        },
-        {
-            label: 'action2',
-            type: 'action',
-            event: 'event2'
-        },
-        {
-            label: 'action3',
-            type: 'action',
-            event: 'event3'
-        }
-    ];
+testSuite.addTest('Lorsque elle est visible, la dropdown affiche les élements ajoutés de façon ordonnée', function(scenario, asserter) {
 
     // Given
+    var elements = [
+        {label: 'some text',type: 'text'},
+        {label: 'action1',type: 'action',event: 'event1'},
+        {label: 'some other text',type: 'text'},
+        {label: 'action2',type: 'action',event: 'event2'},
+        {label: 'action3',type: 'action',event: 'event3'}
+    ];
     scenario.wait('x-button-dropdown');
     scenario.exec(function() {
-
-        elements.forEach(function(element) {
-            if('text' === element.type) {
-                buttonDropdown.addText(element.label);
-            } else if('action' === element.type) {
-                buttonDropdown.addAction(element.label,element.event);
-            }
-        });
+        addElementsToDropdown(elements);
     });
 
     // When
@@ -101,6 +85,65 @@ testSuite.addTest('Lorsque elle est visible, la dropdown affiche les élements a
         asserter.expect(selectors.dropdownLiIndex(index+1)).to.have.text(element.label);
     });
 
+});
+
+testSuite.addTest('A chaque click sur une action, un CustomEvent est envoyé', function(scenario, asserter) {
+
+
+    // Given
+    var elements = [
+        {label: 'some text',type: 'text'},
+        {label: 'action1',type: 'action',event: 'event1'},
+        {label: 'some other text',type: 'text'}
+    ];
+    var eventFired = 0;
+
+    scenario.wait('x-button-dropdown');
+    scenario.exec(function() {
+        addElementsToDropdown(elements);
+        document.addEventListener('event1', function() {
+            eventFired++;
+        });
+    });
+    scenario.click(selectors.toggleClosed);
+
+    // When
+    scenario.click(selectors.dropdownLiIndex(2));
+    scenario.click(selectors.dropdownLiIndex(2));
+
+    // Then
+    asserter.assertTrue(function() {
+        return eventFired === 2;
+    });
+});
+
+testSuite.addTest('Lorsque on click sur un text, aucun CustomEvent n\'est envoyé', function(scenario, asserter) {
+
+
+    // Given
+    var elements = [
+        {label: 'some text',type: 'text'},
+        {label: 'action1',type: 'action',event: 'event1'},
+        {label: 'some other text',type: 'text'}
+    ];
+    var eventFired = 0;
+
+    scenario.wait('x-button-dropdown');
+    scenario.exec(function() {
+        addElementsToDropdown(elements);
+        document.addEventListener('event1', function() {
+            eventFired++;
+        });
+    });
+    scenario.click(selectors.toggleClosed);
+
+    // When
+    scenario.click(selectors.dropdownLiIndex(1));
+
+    // Then
+    asserter.assertTrue(function() {
+        return eventFired === 0;
+    });
 });
 
 

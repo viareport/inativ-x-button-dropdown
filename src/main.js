@@ -45,7 +45,7 @@
                 this.dispatchEvent(toggleEvent);
             }, 
             "click:delegate(div.dropdown ul li.event)": function(e) {
-                var customEvent = new CustomEvent(e.event, {
+                var customEvent = new CustomEvent(e.target.eventName, {
                     'bubbles': true,
                     'cancelable': true                        
                 });                   
