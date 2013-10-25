@@ -1,0 +1,25 @@
+{
+  "name": "inativ-x-button-dropdown",
+  "description": "Wonderfull button dropdown",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:viareport/inativ-x-button-dropdown.git"
+  },
+  "main": "./dist/main.js",
+  "keywords": [
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "spatester": "1.x.x",
+    "inativ-gruntfile": "0.x"
+  },
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "author": {
+    "name": "Inativ",
+    "email": "inativ@viareport.com",
+    "url": "http://viareport.com"
+  }
+}
