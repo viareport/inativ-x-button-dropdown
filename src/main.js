@@ -6,7 +6,7 @@
                 
                 this.header = document.createElement('div');
                 this.header.classList.add('header');
-                this.headerLabel = document.createElement('div');
+                this.headerLabel = document.createElement('span');
                 this.header.appendChild(this.headerLabel);
                 this.headerToggle = document.createElement('span');
                 this.headerToggle.classList.add('toggle-icon');
@@ -22,6 +22,10 @@
 
                 this.documentFragment.appendChild(this.header);
                 this.documentFragment.appendChild(this.dropdown);
+
+                if(this.hasAttribute('label')) {
+                    this._onLabelChanged();
+                }
             },
             inserted: function(){
                 this.appendChild(this.documentFragment);
@@ -32,7 +36,7 @@
             },
             attributeChanged: function(attributeKey){
                 if('label' === attributeKey) {
-                    this.headerLabel.innerHTML = this.getAttribute('label');
+                    this._onLabelChanged();
                 }
             }
         },
@@ -89,6 +93,10 @@
                 if (this.dropdown && !this.dropdown.hasAttribute('hidden') && this !== e.target && !this.contains(e.target)) {
                     this._toggleDropDown();
                 }
+            },
+
+            _onLabelChanged: function() {
+                this.headerLabel.innerHTML = this.getAttribute('label');
             }
         }
     });

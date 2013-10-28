@@ -1,7 +1,12 @@
 .toggle-icon {
-    width:10px;
-    height:10px;
-    background-color: red;
+    &.close:after {
+        padding-left: 10px;
+        content: ">";
+    }
+    &.open:after {
+        padding-left: 10px;
+        content: "X";   
+    }
 }
 
 x-button-dropdown {

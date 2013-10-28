@@ -13,7 +13,10 @@
 </head>
 
 <body>
-    <x-button-dropdown></x-button-dropdown>
+    <div>
+        <div>toto</div>
+        <x-button-dropdown label="click me"></x-button-dropdown>
+    </div>
 </body>
 
 <script type="text/javascript" src="/lib/x-tag-core.js"></script>      
@@ -41,7 +44,6 @@
             {label: 'action2',type: 'action',event: 'event2'},
             {label: 'action3',type: 'action',event: 'event3'}
         ]
-        buttonDropdown.setAttribute('label','click me');
         addElementsToDropdown(elements);
     }, false);
 
