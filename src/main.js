@@ -25,10 +25,10 @@
             },
             inserted: function(){
                 this.appendChild(this.documentFragment);
+                window.document.addEventListener('click', this._clickOutsideListener.bind(this), false);
             },
             removed: function(){
-                // fired each time an element
-                // is removed from DOM
+                window.document.removeEventListener('click', this._clickOutsideListener.bind(this), false);
             },
             attributeChanged: function(attributeKey){
                 if('label' === attributeKey) {
@@ -82,6 +82,12 @@
                     this.dropdown.removeAttribute('hidden');
                 } else {
                     this.dropdown.setAttribute('hidden', true);
+                }
+            },
+
+            _clickOutsideListener: function(e) {
+                if (this.dropdown && !this.dropdown.hasAttribute('hidden') && this !== e.target && !this.contains(e.target)) {
+                    this._toggleDropDown();
                 }
             }
         }

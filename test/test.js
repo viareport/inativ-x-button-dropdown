@@ -10,6 +10,8 @@ selectors.dropdownLiIndex = function dropdownLiIndex(index) {
     return 'x-button-dropdown div.dropdown ul li:nth-child('+index+')';
 };
 
+var buttonDropdown;
+
 var addElementsToDropdown = function(elements) {
     elements.forEach(function(element) {
         if('text' === element.type) {
@@ -21,7 +23,6 @@ var addElementsToDropdown = function(elements) {
 };
 
 
-var buttonDropdown;
 var testSuite = new TestSuite('inativ-x-button-dropdown test', {
     setUp: function() {
         buttonDropdown = document.createElement('x-button-dropdown');
@@ -144,6 +145,49 @@ testSuite.addTest('Lorsque on click sur un text, aucun CustomEvent n\'est envoy√
     asserter.assertTrue(function() {
         return eventFired === 0;
     });
+});
+
+testSuite.addTest('Lorsque la dropdown est visible et que l\'on click en dehors du composant, elle disparait', function(scenario, asserter) {
+
+
+    // Given
+    var elements = [
+        {label: 'some text',type: 'text'}
+    ];
+
+    scenario.wait('x-button-dropdown');
+    scenario.exec(function() {
+        addElementsToDropdown(elements);
+    });
+    scenario.click(selectors.toggleClosed);
+
+    // When
+    scenario.click('body');
+
+    // Then
+    asserter.expect(selectors.dropdown).to.be.hidden();
+    
+});
+
+testSuite.addTest('Lorsque la dropdown est invisible et que l\'on click en dehors du composant, elle reste invisible', function(scenario, asserter) {
+
+
+    // Given
+    var elements = [
+        {label: 'some text',type: 'text'}
+    ];
+
+    scenario.wait('x-button-dropdown');
+    scenario.exec(function() {
+        addElementsToDropdown(elements);
+    });
+
+    // When
+    scenario.click('body');
+
+    // Then
+    asserter.expect(selectors.dropdown).to.be.hidden();
+    
 });
 
 

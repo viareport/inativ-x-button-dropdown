@@ -13,31 +13,36 @@
 </head>
 
 <body>
-
-    
-
-    <x-button-dropdown>
-        <div class="header">
-            <div>label</div>
-            <span class="toggle-icon close"></span>
-        </div>
-        <div class="dropdown">
-            <ul>
-                <li/>
-                <li/>
-            </ul>
-        </div>
-    </x-button-dropdown>
+    <x-button-dropdown></x-button-dropdown>
 </body>
 
-<script type="text/javascript" src="/demo/x-tag-core.js"></script>      
-<script type="text/javascript" src="/demo/main.js"></script>      
+<script type="text/javascript" src="/lib/x-tag-core.js"></script>      
+<script type="text/javascript" src="/dist/main.js"></script>      
 <script type="text/javascript">
 
+    var buttonDropdown;
+
+    var addElementsToDropdown = function(elements) {
+        elements.forEach(function(element) {
+            if('text' === element.type) {
+                buttonDropdown.addText(element.label);
+            } else if('action' === element.type) {
+                buttonDropdown.addAction(element.label,element.event);
+            }
+        });
+    };
+
     document.addEventListener('DOMComponentsLoaded', function(){
-        /*
-            TODO : écrire le JS de la démo
-        */
+        buttonDropdown = document.querySelector('x-button-dropdown');
+        var elements = [
+            {label: 'some text',type: 'text'},
+            {label: 'action1',type: 'action',event: 'event1'},
+            {label: 'some other text',type: 'text'},
+            {label: 'action2',type: 'action',event: 'event2'},
+            {label: 'action3',type: 'action',event: 'event3'}
+        ]
+        buttonDropdown.setAttribute('label','click me');
+        addElementsToDropdown(elements);
     }, false);
 
 </script>
