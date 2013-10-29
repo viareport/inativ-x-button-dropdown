@@ -14,7 +14,10 @@
 
 <body>
     <div>
-        <x-button-dropdown label="click me"></x-button-dropdown>
+        <x-button-dropdown id="all-width" label="all width"></x-button-dropdown>
+    </div>
+    <div style="width:100px;">
+        <x-button-dropdown id="parent-width" label="100px "></x-button-dropdown>
     </div>
 </body>
 
@@ -35,7 +38,7 @@
     };
 
     document.addEventListener('DOMComponentsLoaded', function(){
-        buttonDropdown = document.querySelector('x-button-dropdown');
+        buttonDropdown = document.querySelector('#all-width');
         var elements = [
             {label: 'some text',type: 'text'},
             {label: 'action1',type: 'action',event: 'event1'},
@@ -43,6 +46,9 @@
             {label: 'action2',type: 'action',event: 'event2'},
             {label: 'action3',type: 'action',event: 'event3'}
         ]
+        addElementsToDropdown(elements);
+
+        buttonDropdown = document.querySelector('#parent-width');
         addElementsToDropdown(elements);
     }, false);
 

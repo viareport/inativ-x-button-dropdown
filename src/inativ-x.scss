@@ -9,5 +9,25 @@
 }
 
 x-button-dropdown {
+  .header {
     cursor: pointer;
+    border: black 1px solid;
+  }
+  .dropdown {
+    border: black 1px solid;
+    position: fixed;
+    z-index: 1;
+    background: #45DC8A;
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li.event {
+        cursor: pointer;
+        &:hover {
+          background-color: palegoldenrod;
+        }
+      }
+    }
+  }
 }
