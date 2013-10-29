@@ -6,6 +6,7 @@ selectors.toggleClosed = selectors.toggle+'.close';
 selectors.toggleOpen = selectors.toggle+'.open';
 selectors.dropdown = 'x-button-dropdown div.dropdown';
 selectors.dropdownLi = 'x-button-dropdown div.dropdown ul li';
+selectors.buttonLabel = 'x-button-dropdown div.header span';
 selectors.dropdownLiIndex = function dropdownLiIndex(index) {
     return 'x-button-dropdown div.dropdown ul li:nth-child('+index+')';
 };
@@ -43,7 +44,7 @@ testSuite.addTest('Lorsque on arrive sur la page, le boutton est affiché non d�
     scenario.wait('x-button-dropdown');
 
     // Then
-    asserter.expect('x-button-dropdown div.header span').to.have.text('button label');
+    asserter.expect(selectors.buttonLabel).to.have.text('button label');
     asserter.expect(selectors.toggleClosed).to.exist();
     asserter.expect(selectors.dropdown).to.be.hidden();
 });
@@ -189,6 +190,28 @@ testSuite.addTest('Lorsque la dropdown est invisible et que l\'on click en dehor
     asserter.expect(selectors.dropdown).to.be.hidden();
     
 });
+
+testSuite.addTest('Lorsque on défini le label du bouton à l\'insertion de l\'élément, il est visible', function(scenario, asserter) {
+
+    // Given
+    var newButton = {
+        id:"new-button-dropdown",
+        label:"new button"
+    };
+
+    var newDropdown = '<x-button-dropdown id="'+newButton.id+'" label="'+newButton.label+'"></x-button-dropdown>';
+
+    // When
+    scenario.exec(function() {
+        document.body.innerHTML = newDropdown;
+        buttonDropdown = document.querySelector('x-button-dropdown');
+    });
+    scenario.wait(selectors.buttonLabel);
+
+    // Then
+    asserter.expect(selectors.buttonLabel).to.have.text(newButton.label);
+});
+
 
 
 document.addEventListener('DOMComponentsLoaded', function(){
