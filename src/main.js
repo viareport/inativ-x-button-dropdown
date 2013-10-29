@@ -49,11 +49,16 @@
                 this.dispatchEvent(toggleEvent);
             }, 
             "click:delegate(div.dropdown ul li.event)": function(e) {
+                var toogleEvent = new CustomEvent("toggle", {
+                    'bubbles': true,
+                    'cancelable': true
+                });
                 var customEvent = new CustomEvent(e.target.eventName, {
                     'bubbles': true,
-                    'cancelable': true                        
-                });                   
-                this.dispatchEvent(customEvent); 
+                    'cancelable': true
+                });
+                this.dispatchEvent(toogleEvent);
+                this.dispatchEvent(customEvent);
             },
             "toggle":function(e){
                 e.stopPropagation();

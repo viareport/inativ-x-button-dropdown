@@ -125,16 +125,40 @@ testSuite.addTest('A chaque click sur une action, un CustomEvent est envoyé', f
 
     // When
     scenario.click(selectors.dropdownLiIndex(selectors.root,2));
-    scenario.click(selectors.dropdownLiIndex(selectors.root,2));
 
     // Then
     asserter.assertTrue(function() {
-        return eventFired === 2;
+        return eventFired === 1;
     });
 });
 
-testSuite.addTest('Lorsque on click sur un text, aucun CustomEvent n\'est envoyé', function(scenario, asserter) {
+testSuite.addTest('Lorsque l\'on clique sur une action, le dropdown menu ce ferme', function (scenario, asserter) {
 
+    // Given
+    var elements = [
+        {label: 'some text', type: 'text'},
+        {label: 'action1', type: 'action', event: 'event1'},
+        {label: 'some other text', type: 'text'}
+    ];
+    var eventFired = 0;
+
+    scenario.wait('x-button-dropdown');
+    scenario.exec(function () {
+        addElementsToDropdown(elements);
+        document.addEventListener('event1', function () {
+            eventFired++;
+        });
+    });
+    scenario.click(selectors.toggleClosed(selectors.root));
+
+    // When
+    scenario.click(selectors.dropdownLiIndex(selectors.root, 2));
+
+    // Then
+    asserter.expect(selectors.dropdown(selectors.root)).not.visible();
+});
+
+testSuite.addTest('Lorsque on click sur un text, aucun CustomEvent n\'est envoyé', function(scenario, asserter) {
 
     // Given
     var elements = [
