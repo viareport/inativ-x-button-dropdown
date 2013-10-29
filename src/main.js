@@ -58,8 +58,6 @@
             "toggle":function(e){
                 e.stopPropagation();
                 this._toggleDropDown();
-                this.headerToggle.classList.toggle('close');
-                this.headerToggle.classList.toggle('open'); 
             }
         },
         accessors: {
@@ -87,6 +85,8 @@
                 } else {
                     this.dropdown.setAttribute('hidden', true);
                 }
+                this.headerToggle.classList.toggle('close');
+                this.headerToggle.classList.toggle('open');
             },
 
             _clickOutsideListener: function(e) {
