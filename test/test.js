@@ -43,7 +43,7 @@ testSuite.addTest('Lorsque on arrive sur la page, le boutton est affich√© non d√
     scenario.wait('x-button-dropdown');
 
     // Then
-    asserter.expect('x-button-dropdown div.header div').to.have.text('button label');
+    asserter.expect('x-button-dropdown div.header span').to.have.text('button label');
     asserter.expect(selectors.toggleClosed).to.exist();
     asserter.expect(selectors.dropdown).to.be.hidden();
 });
