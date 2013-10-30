@@ -3,20 +3,44 @@
 
 $borderColor : #8d8d8d;
 
+@mixin arrow_pos($size, $color, $orientation, $top) {
+  right: 4px;
+  border: $size solid $color;
+  position: absolute;
+  top: $top;
+
+  @if $orientation == left {
+    border-left-color: $color;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-right: none;
+  } @else if $orientation == top {
+    border-bottom-color: $color;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top: none;
+  } @else if $orientation == right {
+    border-right-color: $color;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left: none;
+  } @else if $orientation == bottom {
+    border-top-color: $color;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom: none;
+  }
+}
+
 .toggle-icon {
-    padding-left: 10px;
-    &.close:after {
-        content: ">";
-    }
-    &.open:after {
-        content: "X";   
-    }
+  @include arrow_pos(5px, #333, bottom, 10px);
 }
 
 x-button-dropdown {
   .header {
     @extend .btn;
-    width: 110px;
+    min-width: 110px;
+    position:relative;
   }
   .dropdown {
     border: 1px solid #B9B9B9;
