@@ -16,9 +16,6 @@
     <div>
         <x-button-dropdown id="all-width" label="all width"></x-button-dropdown>
     </div>
-    <div style="width:100px;">
-        <x-button-dropdown id="parent-width" label="100px "></x-button-dropdown>
-    </div>
 </body>
 
 <script type="text/javascript" src="/lib/x-tag-core.js"></script>      
@@ -46,9 +43,6 @@
             {label: 'action2',type: 'action',event: 'event2'},
             {label: 'action3',type: 'action',event: 'event3'}
         ]
-        addElementsToDropdown(elements);
-
-        buttonDropdown = document.querySelector('#parent-width');
         addElementsToDropdown(elements);
     }, false);
 

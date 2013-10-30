@@ -48,7 +48,7 @@
                 });
                 this.dispatchEvent(toggleEvent);
             }, 
-            "click:delegate(div.dropdown ul li.event)": function(e) {
+            "click:delegate(div.dropdown ul li.action)": function(e) {
                 var toogleEvent = new CustomEvent("toggle", {
                     'bubbles': true,
                     'cancelable': true
@@ -74,12 +74,13 @@
             },
             addText: function(text) {
                 var li = document.createElement('li');
+                li.classList.add('text');
                 li.innerHTML = text;
                 this.dropdownUL.appendChild(li);
             },
             addAction: function(text, event) {
                 var li = document.createElement('li');
-                li.classList.add('event');
+                li.classList.add('action');
                 li.innerHTML = text;
                 li.eventName = event;
                 this.dropdownUL.appendChild(li);
