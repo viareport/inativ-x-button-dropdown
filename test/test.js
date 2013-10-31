@@ -29,9 +29,9 @@ var buttonDropdown;
 var addElementsToDropdown = function(elements) {
     elements.forEach(function(element) {
         if('text' === element.type) {
-            buttonDropdown.addText(element.label);
+            buttonDropdown.addText(element.label, element.domClass);
         } else if('action' === element.type) {
-            buttonDropdown.addAction(element.label,element.event);
+            buttonDropdown.addAction(element.label,element.event, element.domClass);
         }
     });
 };
@@ -83,7 +83,7 @@ testSuite.addTest('Lorsque elle est visible, la dropdown affiche les élements a
         {label: 'some text',type: 'text'},
         {label: 'action1',type: 'action',event: 'event1'},
         {label: 'some other text',type: 'text'},
-        {label: 'action2',type: 'action',event: 'event2'},
+        {label: 'action2',type: 'action',event: 'event2',domClass:'test'},
         {label: 'action3',type: 'action',event: 'event3'}
     ];
     scenario.wait('x-button-dropdown');
@@ -99,6 +99,30 @@ testSuite.addTest('Lorsque elle est visible, la dropdown affiche les élements a
 
     elements.forEach(function(element, index) {
         asserter.expect(selectors.dropdownLiIndex(selectors.root,index+1)).to.have.text(element.label);
+    });
+
+});
+
+testSuite.addTest('On peut positionner une class sur les elements de notre dropdown', function (scenario, asserter) {
+
+    // Given
+    var elements = [
+        {label: 'some text', type: 'text', domClass: 'class-text'},
+        {label: 'action', type: 'action', event: 'event2', domClass: 'class-action'},
+    ];
+    scenario.wait('x-button-dropdown');
+    scenario.exec(function () {
+        addElementsToDropdown(elements);
+    });
+
+    // When
+    scenario.click(selectors.toggleClosed(selectors.root));
+
+    // Then
+    asserter.expect(selectors.dropdownLi(selectors.root)).to.have.nodeLength(elements.length);
+
+    elements.forEach(function (element, index) {
+        asserter.expect(selectors.dropdownLiIndex(selectors.root, index + 1)).to.have.className(element.domClass);
     });
 
 });

@@ -72,15 +72,21 @@
             addSeparatorClass: function() {
 
             },
-            addText: function(text) {
+            addText: function(text, className) {
                 var li = document.createElement('li');
                 li.classList.add('text');
+                if(className){
+                    li.classList.add(className);
+                }
                 li.innerHTML = text;
                 this.dropdownUL.appendChild(li);
             },
-            addAction: function(text, event) {
+            addAction: function(text, event, className) {
                 var li = document.createElement('li');
                 li.classList.add('action');
+                if (className) {
+                    li.classList.add(className);
+                }
                 li.innerHTML = text;
                 li.eventName = event;
                 this.dropdownUL.appendChild(li);
