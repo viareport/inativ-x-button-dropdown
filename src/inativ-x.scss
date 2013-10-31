@@ -1,36 +1,5 @@
-@import "inativ/screen";
 @import "compass/css3/images";
-
-$borderColor : #8d8d8d;
-
-@mixin arrow_pos($size, $color, $orientation, $top) {
-  right: 4px;
-  border: $size solid $color;
-  position: absolute;
-  top: $top;
-
-  @if $orientation == left {
-    border-left-color: $color;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    border-right: none;
-  } @else if $orientation == top {
-    border-bottom-color: $color;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top: none;
-  } @else if $orientation == right {
-    border-right-color: $color;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    border-left: none;
-  } @else if $orientation == bottom {
-    border-top-color: $color;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-bottom: none;
-  }
-}
+@import "mixin";
 
 .toggle-icon {
   @include arrow_pos(5px, #333, bottom, 10px);
@@ -38,7 +7,7 @@ $borderColor : #8d8d8d;
 
 x-button-dropdown {
   .header {
-    @extend .btn;
+    @include button();
     min-width: 110px;
     position:relative;
   }
