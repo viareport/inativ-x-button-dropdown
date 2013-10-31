@@ -7,7 +7,7 @@
 $borderRadius: 4px;
 
 /* Create a nice button */
-.mixin-button {
+.x-dropdown-button {
   cursor: pointer;
 
   display: inline-block;
@@ -88,8 +88,8 @@ $borderRadius: 4px;
   }
 }
 
-@mixin button() {
-  @extend .mixin-button;
+@mixin x-dropdown-button() {
+  @extend .x-dropdown-button;
 }
 
 @mixin arrow_pos($size, $color, $orientation, $top) {
