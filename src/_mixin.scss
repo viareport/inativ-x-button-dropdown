@@ -22,19 +22,16 @@ $borderRadius: 4px;
 
   @include border-radius($borderRadius);
 
-  .boxshadow & {
-    @include box-shadow(inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05));
-  }
-
   &.small {
     font-size: 12px;
     line-height: 16px;
   }
 
-  //background: white;
-  @include background(#c3c1c1 linear-gradient(#ffffff, #ffffff 25%, #c3c1c1) repeat-x);
-  //filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#c3c1c1');
-  //-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#c3c1c1')";
+  background-color: #ffffff;
+  @include box-shadow(
+      inset 0 -13px 13px #c3c1c1,
+      inset 0 1px 0 rgba(255,255,255,.2),
+      0 1px 2px rgba(0,0,0,.05));
 
   .csstransitions & {
     @include transition(.1s linear all);
@@ -45,13 +42,6 @@ $borderRadius: 4px;
     color: #333;
     text-decoration: none;
     background: #c3c1c1;
-  }
-
-  &:active, &.active {
-
-    .boxshadow & {
-      @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.25) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
-    }
   }
 
   &.disabled, &[disabled], &.selected {
@@ -70,15 +60,12 @@ $borderRadius: 4px;
    *  Different button style
    */
   &.primary {
-    background-color: #00739E;
+    background-color: #0CA8DD;
+    @include box-shadow(inset 0 -13px 13px #00739E);
     background-image: none;
     color: white;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
     border-color: #00516D;
-
-    .cssgradients & {
-      @include background(linear-gradient(#0CA8DD, #00739E) repeat-x);
-    }
 
     &.disabled, &[disabled] {
       @include opacity(0.65);
